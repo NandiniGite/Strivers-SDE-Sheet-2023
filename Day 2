@@ -1,0 +1,49 @@
+1) Rotate Matrix
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+         
+         // 1. Transpose the matrix.
+         // 2. Reverse the rows.
+
+         int n=matrix.size();
+
+         for(int i=0;i<n-1;i++){
+             for(int j=i+1;j<n;j++){
+                 swap(matrix[i][j],matrix[j][i]);
+             }
+         }
+
+         for(int i=0;i<n;i++){
+             reverse(matrix[i].begin(),matrix[i].end());
+         }
+
+    }
+};
+
+2) Merge Overlaping Subintervals 
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+         
+         int n=intervals.size();
+         sort(intervals.begin(),intervals.end());
+         vector<vector<int>> ans;
+
+         for(int i=0;i<n;i++){
+             if(ans.empty() || ans.back()[1]<intervals[i][0]){
+                 ans.push_back(intervals[i]);
+             }
+             else{
+                 ans.back()[1]=max(ans.back()[1],intervals[i][1]);
+             }
+         }
+
+         return ans;
+    }
+};
+
+3) Merge two sorted arrays without extra space
+
