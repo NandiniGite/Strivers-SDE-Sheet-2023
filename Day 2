@@ -46,4 +46,131 @@ public:
 };
 
 3) Merge two sorted arrays without extra space
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+           int i=m-1;
+           int j=0;
+           while(i>=0 && j<n){
+             if(nums1[i]>nums2[j]){
+                 swap(nums1[i],nums2[j]);
+                 i--;
+                 j++;
+             }
+             else{
+                 break;
+             }
+           }
+           sort(nums1.begin(),nums1.end());
+           sort(nums2.begin(),nums2.end());
+    }
+};
+
+4)Inversion of Array( Merge Sort)
+
+#include <bits/stdc++.h> 
+int count =0;
+
+void merge(int arr[],int l,int m,int r){
+        int n1=m-l-1;
+        int n2=r-m;
+        int L[n1];
+        int R[n2];
+        for(int i=0;i<n1;i++){
+            L[i]=arr[i+l];
+        }
+        for(int i=0;i<n2;i++){
+            R[i]=arr[m+1+i];
+        }
+        int i=0,j=0,k=0;
+
+        while(i<n1 && j<n2){
+            if(L[i]<=R[j]){
+                arr[k]=L[i];
+                i++;
+            }
+            else{
+                count+=(m-l+1);
+                arr[k]=R[j];
+                j++;
+            }
+            k++;
+        }
+
+         while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    }
+    
+    void mergeSort(int arr[],int l,int r){
+        if(l<r){
+            int m=l+(r-1)/2;
+
+            mergeSort(arr,l,m);
+            mergeSort(arr,m+1,r);
+
+            merge(arr,l,m,r);
+        }
+
+    }
+long long getInversions(long long *arr, int n){
+    mergeSort(int *arr, 0, n);
+    return count ;
+    
+}
+
+5) Find duplicate in array
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int n=nums.size();
+        int ans;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n+1;i++){
+            if(nums[i]==nums[i+1]){
+                ans=nums[i];
+                break;
+            }
+
+        }
+
+        return ans;
+    }
+};
+
+6) Repeat and missing number
+
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here
+	long long count =0;
+	long long count2=0;
+	for(int i=0;i<n;i++){
+		count +=arr[i];
+		count2+=(long long)arr[i]* (long long)arr[i];
+	} 
+	long long sum =(n*(n+1))/2;
+	long long sum2= (n*(n+1)*((2*n)+1))/6;
+
+    long long  val1=count -sum;
+	long long  val2=count2-sum2;
+	val2=val2/val1;
+	long long x=(val1+val2)/2;
+	long long y=x-val1;
+
+	return{(int)y, (int)x};
+	
+}
 
