@@ -1,1 +1,77 @@
+1) Reversse a Linked List
 
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+
+        ListNode* prev=NULL;
+        ListNode* curr=head;
+
+        while(curr!=NULL){
+            ListNode* fwd=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=fwd;
+
+        }
+
+        return prev;
+        
+    }
+};
+
+2) Middle Element of a Linked List 
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* middle= head;
+        ListNode* first=head->next;
+        while(first!=NULL && first->next!=NULL){
+            middle=middle->next;
+            first =first->next->next;
+}
+       if (first!=NULL){
+           return middle->next;
+}
+        else
+            return middle;
+        
+    }
+};
+
+3) Merge Sorting two linked lists
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* left, ListNode* right) {
+        if(left==NULL)
+            return right;
+        if(right==NULL)
+            return left;
+        ListNode* ans=new ListNode(-1);
+        ListNode* mptr=ans;
+        while(left&&right){
+            if(left->val<=right->val){
+                mptr->next=left;
+                mptr=left;
+                left=left->next;
+            }
+            else
+            {
+                mptr->next=right;
+                mptr=right;
+                right=right->next;
+            }
+        }
+        if(left){
+            mptr->next=left;
+        }
+        if(right){
+            mptr->next=right;
+        }
+        return ans->next;
+    }
+};
+
+4)
