@@ -107,4 +107,41 @@ public:
     }
 };
 
-5)
+5) Remove Duplicates 
+
+int removeDuplicates(vector<int>& nums) {
+        int j=0;
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]!=nums[i+1]){
+                nums[j]=nums[i];
+                j++;
+            }
+            }
+            nums[j++]=nums[nums.size()-1];
+
+            return j;
+    }
+    
+    
+6) Max Consecutive Ones
+
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int n=nums.size();
+        int count =0;
+        int ans=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]==1){
+                count++;
+                ans=max(ans,count);
+            }
+            else{
+                count=0;
+            }
+        }
+
+        return ans;
+    }
+};
+    
