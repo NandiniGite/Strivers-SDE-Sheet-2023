@@ -1,1 +1,28 @@
+1) Rotate a Linked List
 
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL) {
+            return head;
+        }
+        ListNode* dummy = head;
+        int len = 1;
+        while (dummy->next != NULL) {
+            len++;
+            dummy = dummy->next;
+        }
+        dummy->next = head;
+        k = k % len;
+        int end = len - k;
+        dummy = head;
+        while (end > 1) {
+            end--;
+            dummy = dummy->next;
+        }
+        head = dummy->next;
+        dummy->next = NULL;
+
+        return head;
+    }
+};
