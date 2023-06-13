@@ -48,3 +48,77 @@ vector<int> maximumMeetings(vector<int>& start, vector<int>& end) {
     return answer;
 }
 
+2) Minimum number of platforms required
+
+int calculateMinPatforms(int at[], int dt[], int n) {
+    // Write your code here.
+    sort(at,at+n);
+    sort(dt,dt+n);
+    int i=1,j=0;
+    int count=1,ans=1;
+    while(i<n && j<n){
+        if(dt[j]>=at[i]){
+          i++;
+          count++;
+        }
+        else{
+           
+            j++;
+            count--;
+        }
+
+        ans=max(ans,count);
+    }
+
+    return ans;
+}
+
+3) Job Scheduling 
+
+#include <bits/stdc++.h> 
+using namespace std;
+struct job{
+    int dead;
+    int profit;
+};
+bool comparator(struct job a,job b){
+    return (a.profit>b.profit);
+}
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    
+    int n=jobs.size();
+    struct job j[n];
+    for(int i=0;i<n;i++){
+      j[i].dead=jobs[i][0];
+      j[i].profit=jobs[i][1];
+    }
+
+    sort(j,j+n,comparator);
+
+    int maxi=j[0].dead;
+
+    for(int i=0;i<n;i++){
+        maxi=max(maxi,j[i].dead);
+    }
+    int arr[maxi+1];
+    int count=0;
+
+    for(int i=0;i<=maxi;i++)arr[i]=-1;
+
+    for(int i=0;i<n;i++){
+        for(int k=j[i].dead;k>0;k--){
+            if(arr[k]==-1){
+               count+=j[i].profit;
+               arr[k]=i;
+               break;
+            }
+        }
+    }
+
+    return count;
+}
+
+
+
+
