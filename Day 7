@@ -26,3 +26,85 @@ public:
         return head;
     }
 };
+
+2) Clone a Linked List 
+
+Node* copyRandomList(Node* head) {
+        if(!head)   return head;
+        unordered_map<Node*, Node*> copy;
+        Node* it = head;
+        while(it) if(!copy[it]) copy[it] = new Node(it->val), it = it->next;
+        it = head;
+        while(it) copy[it]->next = it->next ? copy[it->next] : nullptr, copy[it]->random = it->random ? copy[it->random] : nullptr, it = it->next;
+        return copy[head];
+    }
+    
+
+3) 3 Sum 
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+
+        vector<vector<int>> output;
+        for(int i=0;i<n-1;i++){
+            int low=i+1,high=n-1;
+            while(low<high){
+                if(nums[i]+nums[low]+nums[high]<0){
+                    low++;
+                }
+                else if(nums[i]+nums[low]+nums[high]>0){
+                    high--;
+                }
+                else{
+                    output.push_back({nums[i],nums[low],nums[high]});
+                    int tempIndex1=low,tempIndex2=high;
+
+                    while(low<high && nums[low]==nums[tempIndex1])low++;
+                    while(low<high && nums[high]==nums[tempIndex2])high--;
+                }
+
+            }
+            while(i+1<n && nums[i]==nums[i+1])i++;
+        }
+
+        return output;
+    }
+};
+
+4) Traping RaimWater(Hard)
+
+// Two Pointer Approach 
+// Time Complexity:O(n)
+// Space Complexity :O (1)
+
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int left = 0, right = n-1;
+        int waterTrapped = 0;
+        int leftMax = 0, rightMax = 0;
+        while (left <= right) {
+            if (height[left] <= height[right]) {
+                if (height[left] > leftMax)
+                    leftMax = height[left];
+                else
+                    waterTrapped += leftMax - height[left];
+                left++;        
+            } else {
+                if (height[right] > rightMax)
+                    rightMax = height[right];
+                else
+                    waterTrapped += rightMax - height[right];
+                right--;
+            }
+        }
+        return waterTrapped;
+    }
+};
+
+5)
