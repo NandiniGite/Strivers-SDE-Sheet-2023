@@ -163,6 +163,70 @@ return finalvalue;
 
 }
 
+5) Minimum Number of coins
+
+#include <bits/stdc++.h> 
+int findMinimumCoins(int amount) 
+{
+  int coins[] = {1, 2, 5, 10, 20, 50, 100, 500, 1000};
+  int n = 9;int count=0;
+
+  for(int i=n-1;i>=0;i--){
+      while(amount>=coins[i]){
+          amount-=coins[i];
+          count++;
+      }
+  }
+
+  return count;
+}
+
+
+6) Maximum number of tasks selection
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Activity {
+    int start;
+    int end;
+    int pos;
+};
+
+bool comp(const Activity& a1, const Activity& a2) {
+    return a1.end < a2.end;
+}
+
+int maximumActivities(const vector<int>& start, const vector<int>& finish) {
+    int n = start.size();
+    vector<Activity> activities(n);
+
+    for (int i = 0; i < n; i++) {
+        activities[i].start = start[i];
+        activities[i].end = finish[i];
+        activities[i].pos = i + 1;
+    }
+
+    sort(activities.begin(), activities.end(), comp);
+
+    int maxActivities = 1;
+    int lastEnd = activities[0].end;
+
+    for (int i = 1; i < n; i++) {
+        if (activities[i].start >= lastEnd) {
+            maxActivities++;
+            lastEnd = activities[i].end;
+        }
+    }
+
+    return maxActivities;
+}
+
+
+
 
 
 
