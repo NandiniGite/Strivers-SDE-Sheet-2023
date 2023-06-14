@@ -119,6 +119,51 @@ int jobScheduling(vector<vector<int>> &jobs)
     return count;
 }
 
+4) Fractional Knapsack Problem 
+
+#include <bits/stdc++.h> 
+struct item{
+    int weight;
+    int value;
+
+};
+
+bool comp(item a,item b){
+    double r1=(double)a.value/(double)a.weight;
+    double r2=(double)b.value/(double)b.weight;
+
+    return r1>r2;
+}
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    struct item it[n];
+    for(int i=0;i<n;i++){
+        it[i].weight=items[i].first;
+        it[i].value=items[i].second;
+    } 
+
+    sort(it,it+n,comp);
+
+    int currWeight=0;
+    double finalvalue=0.0;
+
+    for(int i=0;i<n;i++){
+        if(currWeight+it[i].weight<=w){
+            currWeight+=it[i].weight;
+            finalvalue+=it[i].value;
+        }
+        else{
+            int remain=w-currWeight;
+            finalvalue+=(it[i].value/(double)it[i].weight)*double(remain);
+            break;
+        }
+    }
+    
+return finalvalue;
+
+}
+
+
 
 
 
