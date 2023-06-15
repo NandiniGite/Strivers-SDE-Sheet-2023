@@ -1,1 +1,104 @@
+1) Subset Sum 
+// find sum of all the subsets of the array
 
+#include <bits/stdc++.h> 
+using namespace std;
+
+void helper(int ind,vector<int>& num,int n,vector<int>& ans,int sum){
+    if(ind==n){
+        ans.push_back(sum);
+        return;
+    }
+    // if element is picked
+    helper(ind+1,num,n,ans,sum+num[ind]);
+
+    // element not selected
+    helper(ind+1,num,n,ans,sum);
+}
+vector<int> subsetSum(vector<int> &num) {
+
+   vector<int> ans;
+   int n=num.size();
+
+   helper(0,num,n,ans,0);
+
+   sort(ans.begin(),ans.end());
+    
+    return ans;
+
+}
+
+2) Subset-2 (with unique elements)
+
+class Solution {
+public:
+       void solve(vector<int> & nums,int index,set<vector<int>>&s,vector<int> out){
+    
+
+         if(index==nums.size()){
+             s.insert(out);
+             return ;
+         }
+
+         solve(nums,index+1,s,out);
+
+         int element=nums[index];
+
+         out.push_back(element);
+
+         solve(nums,index+1,s,out);
+     }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        
+        sort(nums.begin(),nums.end());
+
+        vector<vector<int>> ans;
+
+        vector<int> out;
+
+        set<vector<int>> s;
+
+        int index=0;
+
+        solve(nums,index,s,out);
+
+        for(auto i:s){
+            ans.push_back(i);
+        }
+
+        return ans;
+    }
+};
+
+3)  Combination Sum 1
+
+void helper(int idx, vector<int>& candidates, int n, int sum, int target, vector<int>& temp,         vector<vector<int>>& ans) {
+        if (idx == n) {
+            if (sum == target)
+                ans.push_back(temp);
+            return;
+        }
+        if ((sum + candidates[idx]) <= target) {
+            sum += candidates[idx];
+            temp.push_back(candidates[idx]);
+            helper(idx, candidates, n, sum, target, temp, ans);
+            sum -= candidates[idx];
+            temp.pop_back();
+        }
+        helper(idx+1, candidates, n, sum, target, temp, ans);
+    }
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int n = candidates.size();
+        vector<vector<int>> ans;
+        vector<int> temp;
+        helper(0, candidates, n, 0, target, temp, ans);
+        return ans;
+    }
+    
+    
+    
+ 4)Combination Sum-2
+ 
+ 
+    
