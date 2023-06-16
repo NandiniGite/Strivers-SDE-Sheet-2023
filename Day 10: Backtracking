@@ -23,3 +23,48 @@ void Permute(int ind, vector<vector<int>>& ans,vector<int>& nums){
 };
 
 
+2) N-Queens Problem
+
+class Solution {
+public:
+   
+
+   void solve(int ind,vector<string>board,vector<vector<string>>& ans,vector<int>&leftrow,vector<int>& upperdiagonal,vector<int> &lowerdiagonal,int n){
+       if(ind==n){
+          ans.push_back(board);
+          return ;
+       }
+
+       for(int row=0;row<n;row++){
+           if(leftrow[row]==0 && lowerdiagonal[row+ind]==0 && upperdiagonal[n-1+ind-row]==0){
+               board[row][ind]='Q';
+               leftrow[row]=1;
+               lowerdiagonal[row+ind]=1;
+               upperdiagonal[n-1+ind-row]=1;
+
+               solve(ind+1,board,ans,leftrow,upperdiagonal,lowerdiagonal,n);
+
+               board[row][ind]='.';
+               leftrow[row]=0;
+               lowerdiagonal[row+ind]=0;
+               upperdiagonal[n-1+ind-row]=0;
+           }
+       }
+   }
+
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+
+        vector<string> board (n);
+        string s(n,'.');
+        for(int i=0;i<n;i++){
+            board[i]=s;
+        }
+        vector<int>leftrow(n,0),upperdiagonal(2*n-1,0),lowerdiagonal(2*n-1,0);
+
+        solve(0,board,ans,leftrow,upperdiagonal,lowerdiagonal,n);
+         
+         return ans;
+    }
+};
