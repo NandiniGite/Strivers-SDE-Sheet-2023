@@ -159,4 +159,80 @@ string graphColoring(vector<vector<int>>& mat, int m) {
 
 6) Rat in a maze
 
+#include <iostream>
+#include <vector>
+
+// Function to check if the rat can move to a given position (x, y)
+bool isSafe(int x, int y, const std::vector<std::vector<int>>& maze, int N)
+{
+    // Check if the position is within the maze bounds and not blocked
+    return (x >= 0 && x < N && y >= 0 && y < N && maze[x][y] == 1);
+}
+
+// Function to solve the Rat in a Maze problem
+bool solveMazeUtil(int x, int y, std::vector<std::vector<int>>& maze, std::vector<std::vector<int>>& sol, int N)
+{
+    // Check if the rat has reached the destination
+    if (x == N - 1 && y == N - 1)
+    {
+        sol[x][y] = 1; // Mark the final position as part of the solution
+        return true;
+    }
+
+    // Check if the current position is valid
+    if (isSafe(x, y, maze, N))
+    {
+        // Mark the current position as part of the solution
+        sol[x][y] = 1;
+
+        // Move to the right direction
+        if (solveMazeUtil(x, y + 1, maze, sol, N))
+            return true;
+
+        // Move to the down direction
+        if (solveMazeUtil(x + 1, y, maze, sol, N))
+            return true;
+
+        // Move to the left direction
+        if (solveMazeUtil(x, y - 1, maze, sol, N))
+            return true;
+
+        // Move to the up direction
+        if (solveMazeUtil(x - 1, y, maze, sol, N))
+            return true;
+
+        // If no movement leads to the solution, backtrack by unmarking the current position
+        sol[x][y] = 0;
+    }
+
+    return false; // No path found from this position
+}
+
+// Function to solve the Rat in a Maze problem and print the solution
+void solveMaze(const std::vector<std::vector<int>>& maze, int N)
+{
+    std::vector<std::vector<int>> sol(N, std::vector<int>(N, 0)); // Initialize the solution matrix
+
+    // Start solving from the top-left corner
+    if (solveMazeUtil(0, 0, maze, sol, N))
+    {
+        // Print the solution
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                std::cout << sol[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "No solution found!" << std::endl;
+    }
+}
+
+
+
+   
 
