@@ -137,3 +137,57 @@ queue<int> q1,q2;
 };
 
 
+4) Implement Queue using stack
+
+class MyQueue {
+public:
+stack<int> s1,s2;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        s1.push(x);
+    }
+    
+    int pop() {
+        while(!s1.empty()){
+            int d=s1.top();
+            s2.push(d);
+            s1.pop();
+        }
+        int r=s2.top();
+        s2.pop();
+        while(!s2.empty()){
+            int k=s2.top();
+            s1.push(k);
+            s2.pop();
+        }
+        return r;
+        
+    }
+    
+    int peek() {
+         while(!s1.empty()){
+            int d=s1.top();
+            s2.push(d);
+            s1.pop();
+        }
+        int r=s2.top();
+        
+        while(!s2.empty()){
+            int k=s2.top();
+            s1.push(k);
+            s2.pop();
+        }
+        return r;
+        
+    }
+    
+    bool empty() {
+
+        return s1.size()==0;
+        
+    }
+};
+
