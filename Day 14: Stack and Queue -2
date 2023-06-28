@@ -18,4 +18,41 @@ vector<int> nextSmallerElement(vector<int> &arr, int n)
     return ans;
 }
 
+8) Stock Span Problem
+
+class StockSpanner {
+public:
+vector<int> v1;
+vector<int>v2;
+
+    StockSpanner() {
+        
+    }
+    
+    int next(int price) {
+        v1.push_back(price);
+        int n=v1.size()-1;
+
+        if(n==0){
+            v2.push_back(1);
+            return 1;
+        }
+        int count=0;
+        int temp=v1[n];
+
+        for(int i=n;i>0;i--){
+            if(temp<v1[i-1] ){break;}
+            else{
+                count++;
+
+            }
+        }
+
+        count+=1;
+        v2.push_back(count);
+        return count;
+    }
+};
+
+
 
