@@ -40,3 +40,37 @@ public:
         return ans;
     }
 };
+
+2) Longest Palindrome
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        
+        int lenLP=1;
+        int startLP=0;
+        int n=s.length();
+
+        for(int i=0;i<n;i++){
+            int right=i; // initialize right to current index
+
+            while(right<n && s[i]==s[right]) right++; // while equal characters increment right
+            
+            int left=i-1; // initialize left to current index - 1
+
+            while(left>=0 && right<n && s[left]==s[right]){
+                left--;
+                right++;
+            }
+
+            int len=(right-1)-(left+1)+1;
+            if(len>lenLP){
+                lenLP=len;
+                startLP=left+1;
+            }
+        }
+
+        return s.substr(startLP,lenLP);
+
+    }
+};
