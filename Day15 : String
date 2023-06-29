@@ -74,3 +74,42 @@ public:
 
     }
 };
+
+3) Roman to Integer
+
+class Solution {
+public:
+    int value (char a ){
+        int g;
+        if(a=='I')
+            g=1;
+        if(a=='V')
+            g=5;
+        if(a=='X')
+         g= 10;
+        if(a=='L')
+           g= 50;
+        if(a=='C')
+           g= 100;
+        if(a=='D')
+           g= 500;
+        if(a=='M')
+            g= 1000;
+        
+        return g;
+}
+    int romanToInt(string s) {
+        
+        int k=0;
+        for(int i=0;i<s.length();i++){
+            if(value(s[i])<value(s[i+1])){
+                k+=value(s[i+1])-value(s[i]);
+                i++;
+}
+               else{
+                   k+=value(s[i]);
+}
+}
+               return k;
+    }
+};
