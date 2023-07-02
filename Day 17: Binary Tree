@@ -19,4 +19,25 @@ void inorder(TreeNode* root){
     }
 };
 
-2) 
+2) PreOrder Traversal
+
+class Solution {
+public:
+vector<int> ans;
+    void preorder(TreeNode* root){
+        if(root==NULL){
+            return ;
+        }
+        ans.push_back(root->val);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+    vector<int> preorderTraversal(TreeNode* root) {
+        preorder(root);
+        return ans;
+    }
+};
+
+3) PostOrder Traversal
+
+
