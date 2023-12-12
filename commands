@@ -55,6 +55,25 @@ db.games.aggregate([
     }
   }
 ])
+
+// match and group
+// Assuming your collection is named 'games'
+// Aggregation pipeline with $match and $group
+db.games.aggregate([
+  {
+    $match: {
+      "rating": { $gte: 90 } // Filter games with a rating of 90 or higher (you can adjust the condition)
+    }
+  },
+  {
+    $group: {
+      _id: "$publisher",      // Group by publisher
+      totalScore: { $sum: "$rating" },  // Calculate total score for each publisher
+      averageScore: { $avg: "$rating" } // Calculate average score for each publisher
+    }
+  }
+])
+
 // check password
 <script>
         function checkPassword() {
@@ -141,3 +160,16 @@ const UserList = () => {
 
 export default UserList;
 
+// add remove button
+document.getElementById('showDetailsBtn').addEventListener('click', function () {
+    document.getElementById('additionalDetails').classList.toggle('hidden');
+});
+
+//change color 
+function changeColor() {
+            // Get the element by its ID
+            var element = document.getElementById('changeMe');
+
+            // Change the color of the element to red
+            element.style.color = 'red';
+        }
