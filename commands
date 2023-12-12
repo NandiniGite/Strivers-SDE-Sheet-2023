@@ -55,3 +55,25 @@ db.games.aggregate([
     }
   }
 ])
+// check password
+<script>
+        function checkPassword() {
+            var password = document.getElementById('passwordInput').value;
+            var strengthIndicator = document.getElementById('strengthIndicator');
+
+            // Check for minimum length
+            if (password.length < 8) {
+                strengthIndicator.textContent = 'Weak (minimum 8 characters)';
+                strengthIndicator.className = 'weak';
+            } else {
+                // Check for at least one digit, one uppercase character, and one special character
+                if (/\d/.test(password) && /[A-Z]/.test(password) && /[^A-Za-z0-9]/.test(password)) {
+                    strengthIndicator.textContent = 'Strong';
+                    strengthIndicator.className = 'strong';
+                } else {
+                    strengthIndicator.textContent = 'Medium (include at least one digit, one uppercase character, and one special character)';
+                    strengthIndicator.className = 'medium';
+                }
+            }
+        }
+    </script>
