@@ -1,0 +1,57 @@
+// add git file
+git init
+git add .
+git commit -m
+continue
+
+//mongodb commands
+aggregate
+1) group by single field
+db.games.aggregate([
+  {
+    $group: {
+      _id: "$genre", // Group by the 'genre' field
+      count: { $sum: 1 } // Count the number of documents in each group
+    }
+  }
+])
+
+2) group by multiple fields
+db.games.aggregate([
+  {
+    $group: {
+      _id: { genre: "$genre", publisher: "$publisher" }, // Group by both 'genre' and 'publisher'
+      count: { $sum: 1 } // Count the number of documents in each group
+    }
+  }
+])
+3)group by multiple expressions
+db.games.aggregate([
+  {
+    $group: {
+      _id: { year: { $year: "$released" }, genre: "$genre" }, // Group by the year and genre
+      count: { $sum: 1 } // Count the number of documents in each group
+    }
+  }
+])
+4)group by conditional 
+db.games.aggregate([
+  {
+    $group: {
+      _id: {
+        highRating: { $cond: { if: { $gte: ["$rating", 90] }, then: true, else: false } },
+        genre: "$genre"
+      },
+      count: { $sum: 1 } // Count the number of documents in each group
+    }
+  }
+])
+5) grooup by nested field
+db.games.aggregate([
+  {
+    $group: {
+      _id: "$scores.name", // Group by the nested 'scores.name' field
+      averageScore: { $avg: "$scores.score" } // Calculate the average score for each group
+    }
+  }
+])
