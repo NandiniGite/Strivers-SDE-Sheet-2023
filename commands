@@ -77,3 +77,30 @@ db.games.aggregate([
             }
         }
     </script>
+
+// update cart count 
+function addToCart() {
+    // Get the existing cart count from local storage
+    let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+
+    // Increase the cart count by 1
+    cartCount += 1;
+
+    // Update the cart count in local storage
+    localStorage.setItem('cartCount', cartCount);
+
+    // Update the cart count display
+    updateCartCountDisplay();
+}
+
+function updateCartCountDisplay() {
+    const cartCountContainer = document.getElementById('cartCount');
+    const cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+
+    // Update the cart count display
+    cartCountContainer.textContent = cartCount;
+}
+
+// Initial update of the cart count display
+updateCartCountDisplay();
+
