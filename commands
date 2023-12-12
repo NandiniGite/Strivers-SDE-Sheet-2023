@@ -103,4 +103,41 @@ function updateCartCountDisplay() {
 
 // Initial update of the cart count display
 updateCartCountDisplay();
+//get response from API
+
+// src/components/UserList.js
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const UserList = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from the public API
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // The empty dependency array ensures that the effect runs once when the component mounts
+
+  return (
+    <div>
+      <h2>User List</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UserList;
 
